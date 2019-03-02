@@ -15,8 +15,9 @@ def fmt_row(width, row):
     return out
 
 def flipkernel(kern):
+    # x[Slice(None, None, -1)] is equivalent to x[::-1]
     return kern[(slice(None, None, -1),) * 2 + (slice(None), slice(None))]
 
 def conv2d_flipkernel(x, k, name=None):
-    return tf.nn.conv2d(x, flipkernel(k), name=name,
+    return tf.nn.conv2d(x, k, name=name,
                         strides=(1, 1, 1, 1), padding='SAME')
